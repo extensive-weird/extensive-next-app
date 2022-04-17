@@ -1,34 +1,84 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Stack
 
-## Getting Started
+Next.js
 
-First, run the development server:
+# Project Init
+
+1. Typescript Based Next Project Create
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn create next-app app --typescript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add MUI
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- to use default style engine
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## install command
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+yarn add @mui/material @emotion/react @emotion/styled
+```
 
-## Learn More
+- to use styled-components
 
-To learn more about Next.js, take a look at the following resources:
+## install command
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+yarn add @mui/material @mui/styled-engine-sc styled-components
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## reconfigure to use styled-components
 
-## Deploy on Vercel
+### package.json
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+typescript
+{
+   "dependencies": {
+-    "@mui/styled-engine": "latest"
++    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
+   },
++  "resolutions": {
++    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
++  },
+ }
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### tsconfig.json
+
+```typescript
+{
+   "compilerOptions": {
++    "paths": {
++      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
++    }
+   },
+ }
+```
+
+### next.config.js
+
+```typescript
++const withTM = require('next-transpile-modules')([
++  '@mui/material',
++  '@mui/system',
++  '@mui/icons-material', // If @mui/icons-material is being used
++]);
+
++module.exports = withTM({
+ webpack: (config) => {
+   config.resolve.alias = {
+     ...config.resolve.alias,
++    '@mui/styled-engine': '@mui/styled-engine-sc',
+    };
+    return config;
+  }
++});
+```
+
+# Getting Started
+
+```
+
+```
