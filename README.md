@@ -77,7 +77,7 @@ typescript
 +});
 ```
 
-# Getting Started
+# Getting Started.
 
 ```
 
